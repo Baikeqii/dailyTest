@@ -1,6 +1,7 @@
 import './style/index.scss';
 let canvas = document.getElementById("canvasTest"),
-    ctx = canvas.getContext('2d');
+    ctx = canvas.getContext('2d'),
+    lineWidth = 50;
 canvas.isDraw = true;
 
 canvas.addEventListener("mousedown",function(e){
@@ -27,6 +28,30 @@ canvas.addEventListener("mousedown",function(e){
     this.addEventListener("mousemove",move);
     this.addEventListener("mouseup",up);
 })
+
+let clearBtn = document.querySelector("#cleanBtn"),
+    clearAllBtn  = document.querySelector("#cleanAll"),
+    reduceLine = document.querySelector("#reduce"),
+    addLine = document.querySelector("#add");
+
+clearBtn.onclick = function () {
+    //改变状态为橡皮擦状态
+    canvas.isDraw = !canvas.isDraw;
+}
+
+clearAllBtn.onclick = function () {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+}
+
+reduceLine.onclick = function () {
+    if (lineWidth > 5)
+        lineWidth -= 4;
+
+}
+
+addLine.onclick = function () {
+    lineWidth += 4;
+}
 
 function up() {
     this.removeEventListener("mousemove",move);
@@ -56,7 +81,7 @@ function draw(x,y){
     ctx.beginPath();
 
     //线的宽度
-    ctx.lineWidth = 50;
+    ctx.lineWidth = lineWidth;
 
     //线的样式
     ctx.lineCap = "round";
@@ -65,23 +90,13 @@ function draw(x,y){
     ctx.stroke();
     ctx.closePath();
 }
-let clearBtn = document.querySelector("#cleanBtn");
-clearBtn.onclick = function () {
-    //改变状态为橡皮擦状态
-    canvas.isDraw = !canvas.isDraw;
-}
-
-let clearAllBtn  = document.querySelector("#cleanAll");
-clearAllBtn.onclick = function () {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-}
 
 //橡皮擦功能
 function clearPart(x,y) {
     //保存场景
     ctx.save();
     ctx.beginPath();
-    ctx.arc(x,y,50,0,Math.PI * 2,false);
+    ctx.arc(x,y,lineWidth,0,Math.PI * 2,false);
     ctx.clip();
     ctx.clearRect(0,0,canvas.width,canvas.height);
 
@@ -95,7 +110,16 @@ function clearPart(x,y) {
 
 
 
+for (var i = 0; i < 5; i++)
+{
+    console.log("lskdfjslkdfjsldkfj", i)
+}
 
+for(var d=0, j=0; d<10, j<7; d++, j++){
+    var k = d + j;
+
+    console.log("lsdkfjsldkfjsldjkf", k)
+}
 
 
 
